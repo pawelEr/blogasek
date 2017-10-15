@@ -8,11 +8,11 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-public class ServletConfiguration implements WebApplicationInitializer {
+public class ServletConfig implements WebApplicationInitializer {
 
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		AnnotationConfigWebApplicationContext webCtx = new AnnotationConfigWebApplicationContext();
-		webCtx.register(ApplicationConfig.class);
+		webCtx.register(GeneralApplicationConfig.class);
 		webCtx.setServletContext(servletContext);
 		ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(webCtx));
 		servlet.setLoadOnStartup(1);
