@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class DbJpaConfig {
 	
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource dataSource,@Qualifier("JpaProperties") Properties jpaProperties) {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,@Qualifier("JpaProperties") Properties jpaProperties) {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		factoryBean.setDataSource(dataSource);
 		factoryBean.setPackagesToScan("com.github.vampiur.blogasek");
