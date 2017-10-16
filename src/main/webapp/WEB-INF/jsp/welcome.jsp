@@ -9,5 +9,12 @@
 <body>
 <h1>Test</h1>
 ${message }
+
+
+<form action="/post/add" method="POST">
+<input type="text" name="post_title"/>
+<input type="text" name="post_text"/>
+<input type="submit"/>
+</form>
 </body>
 </html>
