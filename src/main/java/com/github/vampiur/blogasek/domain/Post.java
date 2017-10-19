@@ -1,6 +1,6 @@
 package com.github.vampiur.blogasek.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,8 +20,22 @@ public class Post {
 	
 	public String text;
 	
-	public Date timestamp;
+	public LocalDateTime timestamp;
 	
 	@ManyToMany
 	public List<Category> categories;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public long getId() {
+		return id;
+	}
+	
+	
 }
