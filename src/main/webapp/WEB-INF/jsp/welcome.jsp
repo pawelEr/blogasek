@@ -1,16 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Test page</title>
-</head>
+<%@include file="header.jsp"%>
 <body>
-	<h1>Test</h1>
-	${message }
-
-
+	<header>
+		<div class="blog-masthead">
+			<div class="container">
+				<nav class="nav">
+					<a class="nav-link active" href="<%=request.getContextPath()%>">Home</a>
+				</nav>
+			</div>
+		</div>
+		<div class="blog-header">
+			<div class="container">
+				<h1 class="blog-title">Blogasek</h1>
+				<p class="lead blog-description">Simple Spring/Hibernate warmup project</p>
+			</div>
+		</div>
+	</header>
+	<main role="main" class="container">
+		<div class="row">
+			<div class="col-sm-8 blog-main">
+				<h1>Test</h1>
+			    <p>${message }</p>
+			</div>
+			
+		</div>
+	</main>
 	<form action="post/add" method="POST">
 		<input type="text" name="post_title" /> 
 		<input type="text" name="post_text" /> 
@@ -18,5 +35,6 @@
 	</form>
 	
 	<a href="post/list">Posts list</a>
+	<%@include file="footer.jsp"%>
 </body>
 </html>
