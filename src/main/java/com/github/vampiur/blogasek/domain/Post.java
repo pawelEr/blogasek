@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 
 @Entity
@@ -18,6 +19,7 @@ public class Post {
 	
 	public String title;
 	
+	@Lob
 	public String text;
 	
 	public LocalDateTime timestamp;

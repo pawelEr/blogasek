@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
 <%@include file="header.jsp"%>
@@ -9,6 +9,8 @@
 			<div class="container">
 				<nav class="nav">
 					<a class="nav-link active" href="<%=request.getContextPath()%>">Home</a>
+					<a class="nav-link" href="categories/list">Categories</a>
+					<a class="nav-link" href="post/add">Add post</a>
 				</nav>
 			</div>
 		</div>
@@ -22,19 +24,14 @@
 	<main role="main" class="container">
 		<div class="row">
 			<div class="col-sm-8 blog-main">
-				<h1>Test</h1>
-			    <p>${message }</p>
+				<jsp:include page="post_partial.jsp">
+					<jsp:param name="title" value="${latest_post.title}"/>
+					<jsp:param name="text" value="${latest_post.text}"/>		
+				</jsp:include>
 			</div>
 			
 		</div>
 	</main>
-	<form action="post/add" method="POST">
-		<input type="text" name="post_title" /> 
-		<input type="text" name="post_text" /> 
-		<input type="submit" />
-	</form>
-	
-	<a href="post/list">Posts list</a>
 	<%@include file="footer.jsp"%>
 </body>
 </html>

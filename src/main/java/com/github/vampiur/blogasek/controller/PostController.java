@@ -22,6 +22,11 @@ public class PostController {
 	PostRepository posts;
 
 	
+	@RequestMapping(path="/add", method=RequestMethod.GET)
+	public ModelAndView add(){
+		return new ModelAndView("post_add");
+	}
+	
 	//TODO: change whole method (strange flow/url and unsecure)
 	@RequestMapping(path = "/add", method = RequestMethod.POST)
 	public ModelAndView add(@RequestParam(name = "post_title", required = true) String title,
