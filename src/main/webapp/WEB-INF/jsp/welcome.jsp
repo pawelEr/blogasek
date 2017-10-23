@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
-<%@include file="header.jsp"%>
+<jsp:include page="header.jsp"></jsp:include>
 <body>
 	<header>
 		<div class="blog-masthead">
@@ -10,7 +10,7 @@
 				<nav class="nav">
 					<a class="nav-link active" href="<%=request.getContextPath()%>">Home</a>
 					<a class="nav-link" href="categories/list">Categories</a>
-					<a class="nav-link" href="post/add">Add post</a>
+					<a class="nav-link" href="<%=request.getContextPath()%>/post/add">Add post</a>
 				</nav>
 			</div>
 		</div>
@@ -26,7 +26,8 @@
 			<div class="col-sm-8 blog-main">
 				<jsp:include page="post_partial.jsp">
 					<jsp:param name="title" value="${latest_post.title}"/>
-					<jsp:param name="text" value="${latest_post.text}"/>		
+					<jsp:param name="text" value="${latest_post.text}"/>
+					<jsp:param name="id" value="${latest_post.id}"/>				
 				</jsp:include>
 			</div>
 			

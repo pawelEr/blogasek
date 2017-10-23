@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
+<jsp:include page="header.jsp">
+	<jsp:param value="${post.title}" name="page_title"/>
+</jsp:include>
 <%@include file="header.jsp"%>
 <body>
 <header>
@@ -10,7 +13,7 @@
 				<nav class="nav">
 					<a class="nav-link" href="<%=request.getContextPath()%>">Home</a>
 					<a class="nav-link" href="categories/list">Categories</a>
-					<a class="nav-link" href="post/add">Add post</a>
+					<a class="nav-link" href="<%=request.getContextPath()%>/post/add">Add post</a>
 				</nav>
 			</div>
 		</div>
@@ -26,7 +29,8 @@
 			<div class="col-sm-8 blog-main">
 				<jsp:include page="post_partial.jsp">
 					<jsp:param name="title" value="${post.title}"/>
-					<jsp:param name="text" value="${post.text}"/>		
+					<jsp:param name="text" value="${post.text}"/>
+					<jsp:param name="id" value="${post.id}"/>		
 				</jsp:include>
 			</div>
 		</div>

@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
-<%@include file="header.jsp"%>
+<jsp:include page="header.jsp">
+	<jsp:param value="Add post" name="page_title"/>
+</jsp:include>
 <body>
 	<header>
 		<div class="blog-masthead">
