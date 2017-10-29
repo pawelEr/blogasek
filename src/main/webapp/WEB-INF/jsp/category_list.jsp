@@ -22,11 +22,18 @@
 	<main role="main" class="container">
 	<div class="row">
 		<div class="col-sm-8 blog-main">
-			<ul>
-				<c:forEach var="category" items="${categories}">
-					<li>${category.name}</li>
-				</c:forEach>
-			</ul>
+			<c:choose>
+				<c:when test="${empty categories }">
+				<h2>No categories</h2>
+				</c:when>
+				<c:otherwise>
+					<ul>
+						<c:forEach var="category" items="${categories}">
+							<li>${category.name}</li>
+						</c:forEach>
+					</ul>
+				</c:otherwise>
+			</c:choose>
 			<a href="add/" class="btn btn-primary">Add new</a>
 		</div>
 	</div>
