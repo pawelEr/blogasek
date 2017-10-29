@@ -13,8 +13,8 @@
 				<nav class="nav">
 					<a class="nav-link" href="<%=request.getContextPath()%>">Home</a> <a
 						class="nav-link active" href="/list">Categories</a> <a
-						class="nav-link"
-						href="<%=request.getContextPath()%>/post/add">Add post</a>
+						class="nav-link" href="<%=request.getContextPath()%>/post/add">Add
+						post</a>
 				</nav>
 			</div>
 		</div>
@@ -22,10 +22,11 @@
 	<main role="main" class="container">
 	<div class="row">
 		<div class="col-sm-8 blog-main">
-			<c:forEach var="post" items="${posts}">
-				<a href="show/${post.id}">${post.title}</a>
-			</c:forEach>
-
+			<ul>
+				<c:forEach var="category" items="${categories}">
+					<li>${category.name}</li>
+				</c:forEach>
+			</ul>
 			<a href="add/" class="btn btn-primary">Add new</a>
 		</div>
 	</div>

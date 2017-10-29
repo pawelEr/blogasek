@@ -1,7 +1,6 @@
 package com.github.vampiur.blogasek.controller;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.github.vampiur.blogasek.dao.PostRepository;
 import com.github.vampiur.blogasek.domain.Post;
+import com.github.vampiur.blogasek.utils.UrlUtils;
 
 @Controller
 @RequestMapping("/post")
@@ -21,13 +21,11 @@ public class PostController {
 	@Autowired
 	PostRepository posts;
 
-	
-	@RequestMapping(path="/add", method=RequestMethod.GET)
-	public ModelAndView add(){
+	@RequestMapping(path = "/add", method = RequestMethod.GET)
+	public ModelAndView add() {
 		return new ModelAndView("post_add");
 	}
 	
-	//TODO: change whole method (strange flow/url and unsecure)
 	@RequestMapping(path = "/add", method = RequestMethod.POST)
 	public ModelAndView add(@RequestParam(name = "post_title", required = true) String title,
 			@RequestParam(name = "post_text", required = true) String text) {
@@ -37,23 +35,23 @@ public class PostController {
 		newPost.title = title;
 		newPost.timestamp = LocalDateTime.now();
 		posts.save(newPost);
-		return new ModelAndView("post_show", "post", newPost);
+		return UrlUtils.redirectToOwn("post/show/" + newPost.getId());
 	}
-	
+
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		final ModelAndView modelAndView = new ModelAndView("post_list");
-		modelAndView.addObject("posts",posts.findAll());
+		modelAndView.addObject("posts", posts.findAll());
 		return modelAndView;
 	}
-	
-	//TODO: add redirect to 404 on not found post
+
+	// TODO: add redirect to 404 on not found post
 	@RequestMapping("/show/{id}")
-	public ModelAndView show(@PathVariable long id){
+	public ModelAndView show(@PathVariable long id) {
 		final ModelAndView modelAndView = new ModelAndView("post_show");
-		if(posts.exists(id)) {
+		if (posts.exists(id)) {
 			modelAndView.addObject("post", posts.findOne(id));
-		}	
-		return modelAndView; 
+		}
+		return modelAndView;
 	}
 }
