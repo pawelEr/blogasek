@@ -16,7 +16,7 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public ModelAndView welcome(){
-		Post latestPost = posts.findOneByOrderByTimestampDesc();
+		Post latestPost = posts.findFirstByOrderByTimestampDesc();
 		return new ModelAndView("welcome","latest_post",latestPost);
 	}
 }
