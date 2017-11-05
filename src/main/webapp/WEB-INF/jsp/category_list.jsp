@@ -11,7 +11,7 @@
 		<div class="blog-masthead">
 			<div class="container">
 				<nav class="nav">
-					<a class="nav-link" href="<%=request.getContextPath()%>">Home</a> <a
+					<a class="nav-link" href="/<%=request.getContextPath()%>">Home</a> <a
 						class="nav-link active" href="/list">Categories</a> <a
 						class="nav-link" href="<%=request.getContextPath()%>/post/add">Add
 						post</a>
