@@ -1,14 +1,8 @@
 package com.github.vampiur.blogasek.domain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class Post {
@@ -16,8 +10,8 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public long id;
-	
-	public String title;
+
+	private String title;
 	
 	@Lob
 	public String text;
@@ -25,7 +19,7 @@ public class Post {
 	public LocalDateTime timestamp;
 	
 	@ManyToMany
-	public List<Category> categories;
+	private List<Category> categories;
 
 	public String getTitle() {
 		return title;
@@ -38,6 +32,24 @@ public class Post {
 	public long getId() {
 		return id;
 	}
-	
-	
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
 }
