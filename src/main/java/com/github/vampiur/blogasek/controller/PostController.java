@@ -1,57 +1,57 @@
 package com.github.vampiur.blogasek.controller;
 
-import java.time.LocalDateTime;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.github.vampiur.blogasek.dao.PostRepository;
 import com.github.vampiur.blogasek.domain.Post;
-import com.github.vampiur.blogasek.utils.UrlUtils;
+import com.github.vampiur.blogasek.utils.Code404Exception;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/post")
 public class PostController {
 
+    private PostRepository posts;
+
 	@Autowired
-	PostRepository posts;
+    public PostController(PostRepository posts) {
+        this.posts = posts;
+    }
 
-	@RequestMapping(path = "/add", method = RequestMethod.GET)
-	public ModelAndView add() {
-		return new ModelAndView("post_add");
-	}
-	
-	@RequestMapping(path = "/add", method = RequestMethod.POST)
-	public ModelAndView add(@RequestParam(name = "post_title", required = true) String title,
-			@RequestParam(name = "post_text", required = true) String text) {
+    @RequestMapping(path = "/", method = RequestMethod.POST)
+    public Post add(@RequestParam(name = "post_data") Post postData) {
 
-		Post newPost = new Post();
-		newPost.text = text;
-		newPost.title = title;
-		newPost.timestamp = LocalDateTime.now();
-		posts.save(newPost);
-		return UrlUtils.redirectToOwn("post/show/" + newPost.getId());
-	}
+        postData.timestamp = LocalDateTime.now();
+        posts.save(postData);
+        return postData;
+    }
 
-	@RequestMapping("/list")
-	public ModelAndView list() {
-		final ModelAndView modelAndView = new ModelAndView("post_list");
-		modelAndView.addObject("posts", posts.findAll());
-		return modelAndView;
-	}
+    @RequestMapping(path = "/", method = RequestMethod.PUT)
+    public Post edit(@RequestParam(name = "post_data") Post postData) {
+        if (posts.exists(postData.id)) {
+            posts.save(postData);
+        } else {
+            postData.timestamp = LocalDateTime.now();
+            posts.save(postData);
+        }
+        return postData;
+    }
 
-	// TODO: add redirect to 404 on not found post
-	@RequestMapping("/show/{id}")
-	public ModelAndView show(@PathVariable long id) {
-		final ModelAndView modelAndView = new ModelAndView("post_show");
-		if (posts.exists(id)) {
-			modelAndView.addObject("post", posts.findOne(id));
-		}
-		return modelAndView;
+
+    @GetMapping(value = "/")
+    public Iterable<Post> list() {
+        return posts.findAll();
+    }
+
+
+    @GetMapping(value = "/{id}")
+    public Post show(@PathVariable long id) {
+        if (posts.exists(id)) {
+            return posts.findOne(id);
+        } else {
+            throw new Code404Exception("Post not found");
+        }
 	}
 }
