@@ -7,49 +7,54 @@ import java.util.List;
 @Entity
 public class Post {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	public long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long id;
+    @Lob
+    public String text;
+    private String title;
+    private LocalDateTime timestamp;
 
-	private String title;
-	
-	@Lob
-	public String text;
-	
-	public LocalDateTime timestamp;
-	
-	@ManyToMany
-	private List<Category> categories;
+    @ManyToMany
+    private List<Category> categories;
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public String getText() {
+        return text;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
-	}
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 }

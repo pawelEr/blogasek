@@ -19,20 +19,20 @@ public class PostController {
         this.posts = posts;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping()
     public Post add(@RequestParam(name = "post_data") Post postData) {
 
-        postData.timestamp = LocalDateTime.now();
+        postData.setTimestamp(LocalDateTime.now());
         posts.save(postData);
         return postData;
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping()
     public Post edit(@RequestParam(name = "post_data") Post postData) {
         if (posts.exists(postData.id)) {
             posts.save(postData);
         } else {
-            postData.timestamp = LocalDateTime.now();
+            postData.setTimestamp(LocalDateTime.now());
             posts.save(postData);
         }
         return postData;
@@ -45,10 +45,20 @@ public class PostController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public Post show(@PathVariable long id) {
         if (posts.exists(id)) {
             return posts.findOne(id);
+        } else {
+            throw new Code404Exception("Post not found");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public Long delete(@PathVariable long id) {
+        if (posts.exists(id)) {
+            posts.delete(id);
+            return id;
         } else {
             throw new Code404Exception("Post not found");
         }

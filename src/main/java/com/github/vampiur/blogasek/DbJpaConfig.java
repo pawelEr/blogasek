@@ -1,11 +1,5 @@
 package com.github.vampiur.blogasek;
 
-import java.sql.SQLException;
-import java.util.Properties;
-
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
 import org.h2.jdbcx.JdbcDataSource;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,6 +11,11 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories
@@ -35,9 +34,8 @@ public class DbJpaConfig {
 
 	@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-		JpaTransactionManager txManager = new JpaTransactionManager();
-		return txManager;
-	}
+        return new JpaTransactionManager();
+    }
 	
 	@Bean("JpaProperties")
 	public Properties getJpaProperties(){

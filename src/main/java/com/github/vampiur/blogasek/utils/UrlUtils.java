@@ -4,11 +4,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Helper methods for generating urls
- * @author Pawel
  *
+ * @author Pawel
  */
 public class UrlUtils {
-	public static ModelAndView redirectToOwn(String url) {
-		return new ModelAndView("redirect:/"+url);
-	}
+    private UrlUtils() {
+    }
+
+    public static ModelAndView redirectToOwn(String url) {
+        return new ModelAndView("redirect:/" + url);
+    }
 }
